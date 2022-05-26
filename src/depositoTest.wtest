@@ -1,0 +1,106 @@
+import bicis.*
+import accesorios.*
+import deposito.*
+
+describe "Deposito" {
+	var bici1 = new Bicicleta(rodado=28,largo=150,marca="Olmo")
+	var bici2 = new Bicicleta(rodado=26,largo=110,marca="Legnano")
+	var bici3 = new Bicicleta(rodado=20,largo=90,marca="Legnano")
+	var miDeposito = new Deposito()
+	
+	method initialize() {
+		bici1.agregarAccesorio(farolito)
+		bici2.agregarAccesorio(farolito)
+		bici2.agregarAccesorio(new Canasto(volumen=8))
+		bici2.agregarAccesorio(new MorralDeBici(largo=21,tieneOjoDeGato=true))
+		bici3.agregarAccesorio(new MorralDeBici(largo=6))
+		miDeposito.agregarBici(bici1)
+		miDeposito.agregarBici(bici2)
+		miDeposito.agregarBici(bici3)
+	}
+	
+	test "Bicis rapidas" {
+		assert.equals([bici1,bici2],miDeposito.bicisRapidas())
+	}
+	
+	test "Marcas" {
+		assert.equals(#{"Olmo","Legnano"},miDeposito.marcasBicis())
+	}
+	
+	test "El deposito no es nocturno" {
+		assert.notThat(miDeposito.esNocturno())
+	}
+	
+	test "Tiene bici para llevar 10 kilos, no tiene bici para llevar 50 kilos" {
+		assert.that(miDeposito.bicicletaParaLlevar(10))
+		assert.notThat(miDeposito.bicicletaParaLlevar(50))
+	}
+
+}
+
+describe "Deposito con 2 bicis" {
+	var bici1 = new Bicicleta(rodado=28,largo=150,marca="Olmo")
+	var bici2 = new Bicicleta(rodado=26,largo=110,marca="Legnano")
+	var miDeposito = new Deposito()
+	
+	method initialize() {
+		bici1.agregarAccesorio(farolito)
+		bici2.agregarAccesorio(farolito)
+		bici2.agregarAccesorio(new Canasto(volumen=8))
+		bici2.agregarAccesorio(new MorralDeBici(largo=21,tieneOjoDeGato=true))
+		miDeposito.agregarBici(bici1)
+		miDeposito.agregarBici(bici2)
+	}
+	
+	test "El deposito es nocturno" {
+		assert.that(miDeposito.esNocturno())
+	}
+
+}
+
+describe "Mas sobre el deposito" {
+	var bici1 = new Bicicleta(rodado=28,largo=180,marca="Olmo")
+	var bici2 = new Bicicleta(rodado=26,largo=110,marca="Legnano")
+	var miDeposito = new Deposito()
+	
+	method initialize() {
+		bici1.agregarAccesorio(farolito)
+		bici2.agregarAccesorio(farolito)
+		bici2.agregarAccesorio(new Canasto(volumen=8))
+		bici2.agregarAccesorio(new MorralDeBici(largo=21,tieneOjoDeGato=true))
+		miDeposito.agregarBici(bici1)
+		miDeposito.agregarBici(bici2)
+	}
+	
+	test "La marca de la bici mas rapida" {
+		assert.equals("Olmo",miDeposito.marcaBiciMasRapida())
+	}
+	
+	test "carga total de las bicis de mas de 170" {
+		assert.equals(0,miDeposito.cargaTotalBicisLargas())
+	}
+	
+	test "cantidad de bicis sin accesorios " {
+		assert.equals(0,miDeposito.bicisSinAccesorios())
+	}
+}
+
+describe "Las bicis companieras" {
+	var bici1 = new Bicicleta(rodado=28,largo=100,marca="Olmo")
+	var bici2 = new Bicicleta(rodado=26,largo=120,marca="Olmo")
+	var bici3 = new Bicicleta(rodado=34,largo=90,marca="Olmo")
+	var miDeposito = new Deposito()
+	
+	method initialize() {
+		miDeposito.agregarBici(bici1)
+		miDeposito.agregarBici(bici2)
+	}
+	
+	test "son bicis companieras" {
+		assert.equals([bici1],miDeposito.bicisCompanieras(bici3))
+	}
+	
+	test "no son bicis companieras porque es la misma bici" {
+		assert.equals([],miDeposito.bicisCompanieras(bici1))
+	}
+}

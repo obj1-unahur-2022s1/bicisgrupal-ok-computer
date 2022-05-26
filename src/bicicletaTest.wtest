@@ -1,0 +1,100 @@
+import bicis.*
+import accesorios.*
+
+describe "Bici 1" {
+	var bici1 = new Bicicleta(rodado=28,largo=150,marca="Olmo")
+	
+	method initialize() {
+		bici1.agregarAccesorio(farolito)
+	}
+	
+	test "Altura" {
+		assert.equals(85,bici1.altura())
+	}
+	
+	test "Velocidad Crucero" {
+		assert.equals(34,bici1.velocidadCrucero())
+	}
+	
+	test "Carga" {
+		assert.equals(0,bici1.carga())
+	}
+	
+	test "Peso" {
+		assert.equals(14.5,bici1.peso())
+	}
+	
+	test "Tiene luz" {
+		assert.that(bici1.tieneLuz())
+	}
+	
+	test "Tiene un accesorio liviano" {
+		assert.equals(1,bici1.accesoriosLivianos())
+	}
+}
+
+describe "Bici 2" {
+	var bici2 = new Bicicleta(rodado=26,largo=110,marca="Legnano")
+	
+	method initialize() {
+		bici2.agregarAccesorio(farolito)
+		bici2.agregarAccesorio(new Canasto(volumen=8))
+		bici2.agregarAccesorio(new MorralDeBici(largo=21,tieneOjoDeGato=true))
+	}
+	
+	test "Altura" {
+		assert.equals(80,bici2.altura())
+	}
+	
+	test "Velocidad Crucero" {
+		assert.equals(28,bici2.velocidadCrucero())
+	}
+	
+	test "Carga" {
+		assert.equals(23,bici2.carga())
+	}
+	
+	test "Peso" {
+		assert.equals(15.5,bici2.peso())
+	}
+	
+	test "Tiene luz" {
+		assert.that(bici2.tieneLuz())
+	}
+	
+	test "Tiene dos accesorio livianos" {
+		assert.equals(2,bici2.accesoriosLivianos())
+	}
+}
+
+describe "Bici 3" {
+	var bici3 = new Bicicleta(rodado=20,largo=90,marca="Legnano")
+	
+	method initialize() {
+		bici3.agregarAccesorio(new MorralDeBici(largo=6))
+	}
+	
+	test "Altura" {
+		assert.equals(65,bici3.altura())
+	}
+	
+	test "Velocidad Crucero" {
+		assert.equals(22,bici3.velocidadCrucero())
+	}
+	
+	test "Carga" {
+		assert.equals(2,bici3.carga())
+	}
+	
+	test "Peso" {
+		assert.equals(11.2,bici3.peso())
+	}
+	
+	test "No Tiene luz" {
+		assert.notThat(bici3.tieneLuz())
+	}
+	
+	test "No Tiene accesorio livianos" {
+		assert.equals(0,bici3.accesoriosLivianos())
+	}
+}

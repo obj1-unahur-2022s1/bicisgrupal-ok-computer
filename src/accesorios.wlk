@@ -6,7 +6,7 @@ object farolito{
 	method esLuminoso() = true
 }
 	
-object canasto{
+class Canasto{
 	var property volumen
 	
 	method peso() = volumen / 10
@@ -16,7 +16,7 @@ object canasto{
 	method esLuminoso() = false
 }
 
-object morralDeBici{
+class MorralDeBici{
 	var property largo
 	var property tieneOjoDeGato = false
 	
@@ -26,3 +26,8 @@ object morralDeBici{
 	
 	method esLuminoso() = tieneOjoDeGato
 }
+
+/*
+	Habria que agregar aca el accesorio nuevo que se quiera crear, ya sea como objeto o clase, y dentro
+* 	definir los metodos "peso","carga" y "esLuminoso", como mínimo, para respetar el polimorfismo.
+*/

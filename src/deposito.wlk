@@ -4,9 +4,13 @@ import accesorios.*
 class Deposito{
 	var property bicis = []
 	
+	method agregarBici(unaBici) { bicis.add(unaBici) }
+	
+	method quitarBici(unaBici) { bicis.remove(unaBici) }
+	
 	method bicisRapidas() = bicis.filter({ b => b.velocidadCrucero() > 25 })
 	
-	method marcasBicis() = bicis.map({ b => b.marca() }).asSet() // no estoy segura si está bien
+	method marcasBicis() = bicis.map({ b => b.marca() }).asSet()
 	
 	method esNocturno() = bicis.all({ b => b.tieneLuz() })
 	
@@ -16,8 +20,10 @@ class Deposito{
 	
 	method bicisMasLargasQue(cms) = bicis.filter({ b => b.largo() > cms })
 	
-	method cargaTotalBicisLargas() = self.bicisMasLargasQue(170).sum({ b => b.carga() }) // no estoy segura si está bien
+	method cargaTotalBicisLargas() = self.bicisMasLargasQue(170).sum({ b => b.carga() })
 	
 	method bicisSinAccesorios() = bicis.count({ b => b.accesorios().isEmpty() })
+	
+	method bicisCompanieras(unaBici) = bicis.filter( { b => b.sonCompanieras(unaBici)} )
 	
 }

@@ -24,6 +24,15 @@ class Bicicleta{
 	
 	method tieneLuz() = accesorios.any({ a => a.esLuminoso() })
 	
-	method accesoriosLivianos() = accesorios.filter({ a => a.peso() > 1 })
+	method accesoriosLivianos() = accesorios.count({ a => a.peso() < 1 })
+	
+	method diferenciaDeLargo(otraBici) = (largo - otraBici.largo()).abs()
+	
+	method sonDeLaMismaMarca(otraBici) = self.marca() == otraBici.marca()
+	
+	method sonCompanieras(otraBici) {
+		return self.sonDeLaMismaMarca(otraBici) and (self.diferenciaDeLargo(otraBici) <= 10)
+				and self != otraBici
+	}
 	
 }
